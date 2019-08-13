@@ -1,0 +1,36 @@
+<div *ngIf="dataSource">
+  <h1>CENOVNIK</h1>
+  <mat-form-field class='ticketsFilter'>
+      <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+  </mat-form-field>
+  <div class="content">
+    <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+      <ng-container matColumnDef="productTypeName">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Tip karte </th>
+        <td mat-cell *matCellDef="let element"> {{element.productTypeName}} </td>
+      </ng-container>
+      <ng-container matColumnDef="person">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Popust </th>
+        <td mat-cell *matCellDef="let element"> {{(element.person == "obican") ? "bez popusta" : ((element.person == "penzioner") ? "penzionerski" : "studentski")}} </td>
+      </ng-container>
+      <ng-container matColumnDef="price">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Cena </th>
+        <td mat-cell *matCellDef="let element"> {{element.price}} rsd</td>
+      </ng-container>
+        
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;" [ngClass]="{'highlight': selectedRowIndex == row.id, 'disabled-row': !row.purchasable}" (click)="selectTicket(row)"></tr>
+    </table>
+  </div>
+  <br>
+  <div>
+    <button [disabled]="selectedRowElement == null" mat-flat-button color="primary" class='matButtonStyle btnKupiKartu' (click)='buyTicket(selectedRowElement)'>Kupi {{(selectedRowElement != null) ? (selectedRowElement.productTypeName + " (" + selectedRowElement.price + "rsd)") : ""}}</button><br>
+    <pre class='lblMessage' [ngClass]="{'lblError': messageIsError}">{{message}}</pre><br>
+    <div *ngIf="lastBoughtTicketID.length > 0" class="boughtTicketContainer">
+      <label>ID Karte: <b>{{lastBoughtTicketID}}</b></label><br>
+      <label>Karta važi do: <b>{{lastBoughtTicketValidUntil | date: 'dd/MM/yyyy HH:mm'}}h</b></label><br>
+      <label>Cena: <b>{{lastBoughtTicketPrice}} rsd</b></label><br>
+    </div>
+  </div>
+</div>
+  

@@ -1,0 +1,27 @@
+:host {
+    color:white;
+}
+
+.ticketIdSearch {
+    margin-left: 10%;
+    width: 80%;
+}
+
+.btnProveriKartu {
+    margin-left: 10%;
+}
+
+.msg {
+    font-size: 1.4em;
+    color: white;
+    margin-left: 10%;
+}
+
+.errorMsg {
+    color: rgb(190, 18, 18);
+}
+
+.mat-checkbox {
+    margin-left: 20px;
+    font-size: 1.1em;
+}

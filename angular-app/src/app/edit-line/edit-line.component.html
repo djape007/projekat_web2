@@ -1,0 +1,35 @@
+<h1>Linije</h1>
+<mat-form-field class='linesFilter' style='margin-top: -30px;'>
+    <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+  </mat-form-field>
+<div class='bus-lines' style='height: 245px; overflow-y: scroll;'>
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+    <ng-container matColumnDef="Id">
+      <th mat-header-cell *matHeaderCellDef> Linija </th>
+      <td mat-cell *matCellDef="let element"> {{element.Id}} </td>
+    </ng-container>
+    <ng-container matColumnDef="Direction">
+        <th mat-header-cell *matHeaderCellDef> Naziv </th>
+        <td mat-cell *matCellDef="let element"> {{element.Direction}} </td>
+      </ng-container>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;" [ngClass]="{'highlight': row.Id == selectedLineId}"  (click)="selectRow(row)"></tr>
+  </table>
+</div>
+<button mat-flat-button color="primary" class='matButtonStyle btn-left-w-33' style="margin-left: 10%;" (click)="addNewLineBtnClick()">Nova linija</button>
+<button mat-flat-button color="primary" class='matButtonStyle btn-right-w-33' style="margin-left: 0;" (click)="deleteLine()">Obriši liniju</button>
+<br><span *ngIf="msgOk" style='color: green;'>{{msgOk}}</span><span *ngIf="msgBad" style='color: red;'>{{msgBad}}</span>
+<div *ngIf="selectedLine" >
+    <div class="form-group" style='text-align: center;'>
+      <h3 *ngIf="isNewLine" style='margin: 0; margin-top: 10px;'>Nova linija</h3>
+      <mat-form-field *ngIf="isNewLine" class="div-full-width">
+        <input matInput placeholder="Linija" required [(ngModel)]="selectedLine.Id">
+        <mat-error *ngIf="errId">Obavezno polje</mat-error>
+      </mat-form-field>
+      <mat-form-field class="div-full-width">
+        <input matInput placeholder="Naziv" required [(ngModel)]="selectedLine.Direction">
+        <mat-error *ngIf="errDirection">Obavezno polje</mat-error>
+      </mat-form-field>
+      <button *ngIf="selectedLine" mat-flat-button color="primary" type="submit" name="addbtn" class='matButtonStyle' (click)='saveLine()'>Sačuvaj</button>
+    </div>
+</div>

@@ -1,0 +1,65 @@
+:host {
+    color: white;
+}
+
+.btn-left-w-33{
+    width: 33%;
+    margin-left: 10%;
+    margin-right: 7%;
+    margin-top: 10px;
+  }
+  
+  .btn-right-w-33{
+    width: 33%;
+    margin-right: 10%;
+    margin-left: 7%;
+    margin-top: 10px;
+  }
+
+  .div-full-width{
+    margin-top: 10px;
+    width: 80%;
+    margin-left: 10%;
+    margin-right: 10%;
+  }
+
+  .points{
+    height: auto;
+    max-height: 200px;
+    overflow-y: auto;
+  }
+
+  .ticketsFilter {
+    width: 80%;
+    margin-left: 10%;
+    color: white;
+  }
+
+  table {
+    width: 100%;
+  }
+  
+  .highlight{
+    background: #fac344;
+    font-weight: bold;
+  }
+  
+  .highlight td {
+    color: black;
+  }
+  
+  .mat-row:hover {
+    background-color:#fac344;
+    cursor: pointer;
+  }
+  
+  .mat-row:hover td {
+    color: black;
+    font-weight: bold;
+  }
+
+  .linesFilter {
+    width: 80%;
+    margin-left: 10%;
+    color: white;
+  }

@@ -1,0 +1,29 @@
+:host {
+    color: white;
+  }
+
+  .example-full-width {
+    width: 80%;
+    margin-left: 10%;
+    margin-right: 10%;
+  }
+  
+  .example-left-half-width {
+    width: 38%;
+    margin-left: 10%;
+    margin-right: 2%;
+  }
+    
+  .example-right-half-width {
+    width: 38%;
+    margin-right: 10%;
+    margin-left: 2%;
+  }
+
+  .text-red{
+    color: red;
+  }
+
+  mat-error {
+    float: right;
+  }

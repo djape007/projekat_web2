@@ -1,0 +1,48 @@
+<h2>Kupljene karte</h2>
+<mat-form-field class='ticketsFilter'>
+  <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+</mat-form-field>
+<div class="content">
+<table mat-table [dataSource]="kupljeneKarte" matSort class="mat-elevation-z8">
+  <ng-container matColumnDef="Type">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> Tip karte </th>
+    <td mat-cell *matCellDef="let karta"> {{karta.Type}} </td>
+  </ng-container>
+  <ng-container matColumnDef="DateOfPurchase">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> Datum kupovine </th>
+    <td mat-cell *matCellDef="let karta"> {{karta.DateOfPurchase | date: 'dd/MM/yyyy HH:mm'}} </td>
+  </ng-container>
+  <ng-container matColumnDef="Expires">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> Validna </th>
+    <td mat-cell *matCellDef="let karta">{{(karta.Expires > currentDateTime) ? 'Da' : 'Ne' }}</td>
+  </ng-container>
+    
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let karta; columns: displayedColumns;" [ngClass]="{'highlight': selectedTicket != null && selectedTicket.Id == karta.Id}" (click)="selectTicket(karta)"></tr>
+</table>
+</div>
+
+<!-- PRIKAZUJE PODATKE KARTE -->
+<div *ngIf="selectedTicket != null">
+  <h3 style='margin:0px; margin-left: 10px; margin-top: 15px;'>Detalji karte</h3>
+  <table style='border-spacing: 10px;'>
+    <tr>
+      <td><b>Id</b></td><td style='font-size: 0.88em'>{{ selectedTicket.Id }}</td>
+    </tr>
+    <tr>
+      <td><b>Tip</b></td><td>{{ selectedTicket.Type }}</td>
+    </tr>
+    <tr>
+      <td><b>Cena</b></td><td>{{ selectedTicket.Price }}rsd</td>
+    </tr>
+    <tr>
+      <td><b>Broj<br>korišćenja</b></td><td>{{ selectedTicket.Usages }}</td>
+    </tr>
+    <tr>
+      <td><b>Datum<br>kupovine</b></td><td>{{ selectedTicket.DateOfPurchase | date: 'dd/MM/yyyy HH:mm' }}</td>
+    </tr>
+    <tr>
+      <td><b>Važi do</b></td><td>{{ selectedTicket.Expires | date: 'dd/MM/yyyy HH:mm' }}</td>
+    </tr>
+  </table>
+</div>

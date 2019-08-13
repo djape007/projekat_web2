@@ -1,0 +1,15 @@
+:host {
+    color: white;
+}
+
+.div-horizontal{
+    height: 110px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    margin-bottom: 10px;
+}
+
+.users-holder{
+    width: 100%;
+}
+  

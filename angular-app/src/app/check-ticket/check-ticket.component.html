@@ -1,0 +1,38 @@
+<h2>Validacija autobuske karte</h2>
+<div>
+  <mat-form-field class='ticketIdSearch'>
+      <input matInput placeholder="ID Karte" [(ngModel)]="ticketId">
+  </mat-form-field>
+  <button mat-flat-button color="primary" class='matButtonStyle btnProveriKartu' (click)='checkTicket()'>Proveri kartu</button>
+  <mat-checkbox color="primary" [(ngModel)]="displayTicketData">Prikaži podatke karte</mat-checkbox>
+  <p *ngIf="message.length > 0" class='msg' [ngClass]="{'errorMsg': isError}">{{message}}</p>
+</div>
+<!-- PRIKAZUJE PODATKE KARTE -->
+<div *ngIf="foundTicket != null">
+  <h3 style='margin:0px; margin-left: 10px; margin-top: 15px;'>Detalji karte</h3>
+  <table style='border-spacing: 10px;'>
+    <tr>
+      <td><b>Id</b></td><td style='font-size: 0.88em'>{{ foundTicket.Id }}</td>
+    </tr>
+    <tr>
+      <td><b>Tip</b></td><td>{{ foundTicket.Type }}</td>
+    </tr>
+    <tr>
+      <td><b>Cena</b></td><td>{{ foundTicket.Price }}rsd</td>
+    </tr>
+    <tr>
+      <td><b>Broj<br>korišćenja</b></td><td>{{ foundTicket.Usages }}</td>
+    </tr>
+    <tr>
+      <td><b>Datum<br>kupovine</b></td><td>{{ foundTicket.DateOfPurchase | date: 'dd/MM/yyyy HH:mm' }}</td>
+    </tr>
+    <tr>
+      <td><b>Važi do</b></td><td>{{ foundTicket.Expires | date: 'dd/MM/yyyy HH:mm' }}</td>
+    </tr>
+    <tr>
+      <td><b>Kupac</b></td>
+      <td *ngIf="foundTicket.User.Name != null">{{ foundTicket.User.Name }} {{foundTicket.User.Surname}}</td>
+      <td *ngIf="foundTicket.User.Name == null">karta je kupljena bez naloga</td>
+    </tr>
+  </table>
+</div>

@@ -1,0 +1,10 @@
+:host{
+    color: white;
+}
+
+.logout{
+    margin-top: 10px;
+    margin-right: 10%;
+    text-align: right;
+    margin-bottom: 10px;
+}

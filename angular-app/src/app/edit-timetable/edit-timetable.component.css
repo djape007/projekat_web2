@@ -1,0 +1,133 @@
+/* h1{
+    color:white;
+    text-align: center;
+    margin-left: 35px;
+  } */
+
+  :host{
+    color: white;
+}
+
+.bus-lines{
+  height: 200px;
+  overflow-y: scroll;
+}
+
+.ticketsFilter {
+  width: 80%;
+  margin-left: 10%;
+  color: white;
+}
+
+table {
+  width: 100%;
+}
+
+.highlight{
+  background: #fac344;
+  font-weight: bold;
+}
+
+.highlight td {
+  color: black;
+}
+
+.mat-row:hover {
+  background-color:#fac344;
+  cursor: pointer;
+}
+
+.mat-row:hover td {
+  color: black;
+  font-weight: bold;
+}
+
+.div-full-width{
+  margin-top: 10px;
+  width: 80%;
+  margin-left: 10%;
+  margin-right: 10%;
+}
+
+.div-left-half-width{
+  margin-left: 10%;
+  width: 38%;
+  margin-right: 2%;
+}
+
+.div-right-half-width{
+  margin-right: 10%;
+  width: 38%;
+  margin-left: 2%;
+}
+
+.timetableJedanSat {
+  font-size: 1.3em;
+}
+
+.timetableMinut {
+  margin-left: 11px;
+  font-size: 1.1em;
+}
+
+.times {
+  padding-bottom: 5px;
+  padding-top: 5px;
+  color: white;
+  margin-left: 10px;
+}
+
+.btn-w-32{
+  width: 32%;
+  margin: 1px;
+  margin-top: 10px;
+}
+
+.text-center{
+  text-align: center;
+}
+
+.btn-left-w-33{
+  width: 33%;
+  margin-left: 10%;
+  margin-right: 7%;
+  margin-top: 10px;
+}
+
+.btn-right-w-33{
+  width: 33%;
+  margin-right: 10%;
+  margin-left: 7%;
+  margin-top: 10px;
+}
+
+.timetableMinut:hover {
+  cursor: pointer;
+  color: red;
+}
+
+.timetableJedanSat:hover {
+  cursor: pointer;
+  color: red;
+}
+
+.timetableJedanSat:hover ~ .timetableMinut {
+  cursor: pointer;
+  color: red;
+}
+
+.okrglBtn {
+  border-radius: 50%;
+    width: 35px;
+    height: 35px;
+    line-height: 0;
+    padding: 0;
+    margin: 0;
+    min-width: 0;
+    min-height: 0;
+    vertical-align: inherit;
+    text-decoration: unset;
+    font-size: 25px;
+    padding-bottom: 3px;
+    padding-right: 1px;
+}

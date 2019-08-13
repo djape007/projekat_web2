@@ -1,0 +1,42 @@
+<h1>Stanice</h1>
+<mat-form-field class='linesFilter' style='margin-top: -30px;'>
+    <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+  </mat-form-field>
+<div class='bus-lines' style='height: 245px; overflow-y: scroll;'>
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+    <ng-container matColumnDef="Id">
+      <th mat-header-cell *matHeaderCellDef> Linija </th>
+      <td mat-cell *matCellDef="let element"> {{element.Id}} </td>
+    </ng-container>
+    <ng-container matColumnDef="Direction">
+        <th mat-header-cell *matHeaderCellDef> Naziv </th>
+        <td mat-cell *matCellDef="let element"> {{element.Direction}} </td>
+      </ng-container>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;" [ngClass]="{'highlight': row.Id == selectedLineId}"  (click)="selectRow(row)"></tr>
+  </table>
+</div>
+<button mat-flat-button color="primary" class='matButtonStyle btn-left-w-33' style="margin-left: 10%;" (click)="addBtnClick()">Dodaj stanicu</button>
+<div *ngIf="selectedBusStop" style='text-align: center;'>
+  <h3 style='margin: 0; margin-top: 5px;'>Izmena izabrane stanice<br><span *ngIf="msgOk" style='color: green;'>{{msgOk}}</span><span *ngIf="msgBad" style='color: red;'>{{msgBad}}</span></h3>
+  <form [formGroup]="busStopForm" novalidate>
+    <div class="form-group">
+      <mat-form-field class="div-full-width">
+        <input type='number'  formControlName='x' matInput placeholder="X" readonly [value]="this._parent.editSelectedMarker.getPosition().lat() | number : '1.7'">
+      </mat-form-field>
+      <mat-form-field class="div-full-width">
+        <input type='number' formControlName='y' matInput placeholder="Y" readonly [value]="this._parent.editSelectedMarker.getPosition().lng() | number : '1.7'">
+      </mat-form-field>
+      <mat-form-field class="div-full-width">
+        <input formControlName='busStopName' matInput placeholder="Ime" [(ngModel)]='this._parent.editSelectedBusStop.Name' required>
+        <mat-error *ngIf="busStopForm.controls['busStopName'].errors && busStopForm.controls['busStopName'].errors['required']">Obavezno polje</mat-error>
+      </mat-form-field>
+      <mat-form-field class="div-full-width">
+        <input formControlName='busStopLines' matInput placeholder="Linije" [(ngModel)]='this._parent.editSelectedBusStop.Address' required>
+        <mat-error *ngIf="busStopForm.controls['busStopLines'].errors && busStopForm.controls['busStopLines'].errors['required']">Obavezno polje</mat-error>
+      </mat-form-field>
+    </div>
+    <button style='margin-top: 15px;' mat-flat-button color="primary" type="submit" name="saveBtn" class='matButtonStyle' (click)='SaveBusStop()'>Sačuvaj stanicu</button>
+    <button mat-flat-button color="primary" type="submit" style='margin-left: 10px;' name="removeBtn" class='matButtonStyle' (click)='RemoveBusStop()'>Obriši stanicu</button>
+  </form>
+</div>

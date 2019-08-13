@@ -1,0 +1,32 @@
+<app-left-menu id='leftPanel' class='animationPanel'></app-left-menu>
+<div id='map-holder' class='animationPanel' style="width:100%; height:100%">
+    <nav class='navMenu navLeft'>
+        <ul>
+            <li><a class="nav-link2" routerLink="/home/timetable" routerLinkActive="active">RED VOŽNJE</a></li>
+            <li><a class="nav-link2" routerLink="/home/tickets" routerLinkActive="active">KARTE</a></li>
+        </ul>
+    </nav>
+    <nav class='navMenu navRight'>
+        <ul *ngIf="!checkIfLoggedIn()">
+            <li><a class="nav-link2" routerLink="/home/register" routerLinkActive="active">REGISTRACIJA</a></li>
+            <li><a class="nav-link2" routerLink="/home/login" routerLinkActive="active">PRIJAVA</a></li>
+        </ul>
+        <ul *ngIf="checkIfLoggedIn()">
+            <li *ngIf="_auth.getRole() == 'Controller'"><a class="nav-link2" routerLink="/home/verification" routerLinkActive="active">PROVERA KORISNIKA</a></li>
+            <li *ngIf="_auth.getRole() == 'Controller'"><a class="nav-link2" routerLink="/home/check-ticket" routerLinkActive="active">PROVERA KARTE</a></li>
+            <li *ngIf="_auth.getRole() == 'AppUser'"><a class="nav-link2" routerLink="/home/bought-tickets" routerLinkActive="active">KUPLJENE KARTE</a></li>
+            <li *ngIf="_auth.getRole() == 'Admin'"><a class="nav-link2" routerLink="/home/edit-pricelist" routerLinkActive="active">CENOVNIK</a></li>
+            <li *ngIf="_auth.getRole() == 'Admin'"><a class="nav-link2" routerLink="/home/edit-busstop" routerLinkActive="active">STANICE</a></li>
+            <li *ngIf="_auth.getRole() == 'Admin'"><a class="nav-link2" routerLink="/home/edit-timetables" routerLinkActive="active">POLASCI</a></li>
+            <li><a class="nav-link2" routerLink="/home/profile" routerLinkActive="active">PROFIL</a></li>
+            <li *ngIf="_auth.getRole() == 'Admin'"><a class="nav-link2" routerLink="/home/edit-lines" routerLinkActive="active">LINIJE</a></li>
+        </ul>
+    </nav>
+    <div id='mapOverlay' (click)='NavigateToMap()' class='map-no-overlay'></div>
+    <div class='logo-holder'>
+        <img src='../../assets/imgs/logo_2.png'>
+    </div>
+    <div id='companyNameBottom'>VINKO KLOCNA PREVOZ</div>
+    <div #map style="width:100%; height:100%; transition-property: filter; transition-duration: 0.8s;"></div>
+</div>
+<app-right-menu id='rightPanel' class='animationPanel'></app-right-menu>

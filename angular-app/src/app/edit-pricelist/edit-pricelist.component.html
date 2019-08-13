@@ -1,0 +1,69 @@
+<h1>Cenovnik</h1>
+<button mat-flat-button color="primary" type="submit" style="margin-bottom: 10px;" name="editBtn" class='matButtonStyle btn-left-w-33' (click)="addBtnClick()">Kreiraj</button>
+<div *ngIf="pricelists" class="points">
+  <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+    <ng-container matColumnDef="Index">
+        <th mat-header-cell *matHeaderCellDef> Redni broj </th>
+        <td mat-cell *matCellDef="let element"> {{element.Index}} </td>
+    </ng-container>  
+    <ng-container matColumnDef="From">
+      <th mat-header-cell *matHeaderCellDef> Vazi od </th>
+      <td mat-cell *matCellDef="let element"> {{element.From}} </td>
+    </ng-container>  
+    <ng-container matColumnDef="To">
+      <th mat-header-cell *matHeaderCellDef> Vazi do </th>
+      <td mat-cell *matCellDef="let element"> {{element.To}} </td>
+    </ng-container> 
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;" [ngClass]="{'highlight': selectedRowIndex == row.Id}" (click)="selectRow(row)"></tr>
+  </table>
+</div>
+<div *ngIf="selectedRowIndex">
+  <button mat-flat-button color="primary" type="submit" style="margin-top: 10px;" name="editBtn" class='matButtonStyle btn-left-w-33' (click)="editBtnClick()">Izmeni</button>
+  <button mat-flat-button color="primary" type="submit" style="margin-top: 10px;" name="editBtn" class='matButtonStyle btn-right-w-33' (click)="deleteBtnClick()">Obrisi</button>
+</div>
+<div *ngIf="pricelist || newPricelist" style="margin-top: 10px;">
+  <form [formGroup]="priceForm" novalidate style='text-align: center;'>     
+    <div class="form-group">
+      <mat-form-field class="example-left-half-width">
+        <input matInput [matDatepicker]="pickerFrom" formControlName='from' placeholder="Vazi od" required>
+        <mat-datepicker-toggle matSuffix [for]="pickerFrom"></mat-datepicker-toggle>
+        <mat-datepicker #pickerFrom></mat-datepicker>
+        <mat-error *ngIf="priceForm.controls['from'].errors && priceForm.controls['from'].errors['required']">Obavezno polje</mat-error>
+      </mat-form-field>
+      <mat-form-field class="example-right-half-width">
+        <input matInput [matDatepicker]="pickerTo" formControlName='to' placeholder="Vazi do" required>
+        <mat-datepicker-toggle matSuffix [for]="pickerTo"></mat-datepicker-toggle>
+        <mat-datepicker #pickerTo></mat-datepicker>
+        <mat-error *ngIf="priceForm.controls['to'].errors && priceForm.controls['to'].errors['required']">Obavezno polje</mat-error>
+      </mat-form-field>
+      <mat-form-field class="div-full-width">
+        <input (focusout)='vremenskaIsNotNumber()' formControlName='vremenska' matInput placeholder="cena za vremensku" required>
+        <mat-error *ngIf="priceForm.controls['vremenska'].errors && priceForm.controls['vremenska'].errors['required']">Obavezno polje</mat-error>
+        <mat-error *ngIf="priceForm.controls['vremenska'].errors && priceForm.controls['vremenska'].errors['notnumber']">Mora biti broj</mat-error>
+      </mat-form-field>
+      <mat-form-field class="div-full-width">
+        <input (focusout)='dnevnaIsNotNumber()' formControlName='dnevna' matInput placeholder="cena za dnevnu" required>
+        <mat-error *ngIf="priceForm.controls['dnevna'].errors && priceForm.controls['dnevna'].errors['required']">Obavezno polje</mat-error>
+        <mat-error *ngIf="priceForm.controls['dnevna'].errors && priceForm.controls['dnevna'].errors['notnumber']">Mora biti broj</mat-error>
+      </mat-form-field>
+      <mat-form-field class="div-full-width">
+        <input (focusout)='mesecnaIsNotNumber()' formControlName='mesecna' matInput placeholder="cena za mesecnu" required>
+        <mat-error *ngIf="priceForm.controls['mesecna'].errors && priceForm.controls['mesecna'].errors['required']">Obavezno polje</mat-error>
+        <mat-error *ngIf="priceForm.controls['mesecna'].errors && priceForm.controls['mesecna'].errors['notnumber']">Mora biti broj</mat-error>
+      </mat-form-field>
+      <mat-form-field class="div-full-width">
+        <input (focusout)='sestomesecnaIsNotNumber()' formControlName='sestomesecna' matInput placeholder="cena za sestomesecnu" required>
+        <mat-error *ngIf="priceForm.controls['sestomesecna'].errors && priceForm.controls['sestomesecna'].errors['required']">Obavezno polje</mat-error>
+        <mat-error *ngIf="priceForm.controls['sestomesecna'].errors && priceForm.controls['sestomesecna'].errors['notnumber']">Mora biti broj</mat-error>
+      </mat-form-field>
+      <mat-form-field class="div-full-width">
+        <input (focusout)='godisnjaIsNotNumber()' formControlName='godisnja' matInput placeholder="cena za godisnju" required>
+        <mat-error *ngIf="priceForm.controls['godisnja'].errors && priceForm.controls['godisnja'].errors['required']">Obavezno polje</mat-error>
+        <mat-error *ngIf="priceForm.controls['godisnja'].errors && priceForm.controls['godisnja'].errors['notnumber']">Mora biti broj</mat-error>
+      </mat-form-field>
+    </div>   
+    <button *ngIf="pricelist" mat-flat-button color="primary" type="submit" class='matButtonStyle' (click)='editPricelist()'>Sacuvaj cenovnik</button>
+    <button *ngIf="newPricelist" mat-flat-button color="primary" type="submit" class='matButtonStyle' (click)='addPricelist()'>Dodaj cenovnik</button>
+  </form>
+</div>

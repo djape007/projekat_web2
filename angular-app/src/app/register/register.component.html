@@ -1,0 +1,58 @@
+<h1>REGISTRACIJA</h1>
+<div>
+  <form [formGroup]="registerForm" novalidate (ngSubmit)="register()" style='text-align: center;'>     
+    <div class="form-group">
+      <mat-form-field class="example-full-width">
+        <input formControlName='email' matInput placeholder="Email" required>
+        <mat-error *ngIf="registerForm.controls['email'].errors && registerForm.controls['email'].errors['required']">Obavezno polje</mat-error>
+        <mat-error *ngIf="registerForm.controls['email'].errors && registerForm.controls['email'].errors['email']">Nije validna email adresa</mat-error>
+      </mat-form-field>
+      <mat-form-field class="example-full-width">
+        <input type="password" formControlName='password' matInput placeholder="Lozinka" matNativeControl required>
+        <mat-error *ngIf="registerForm.controls['password'].errors && registerForm.controls['password'].errors['required']">Obavezno polje</mat-error>
+        <mat-error *ngIf="registerForm.controls['password'].errors && registerForm.controls['password'].errors['minlength']">Mora biti duza od 6 karaktera</mat-error>
+      </mat-form-field>
+      <mat-form-field class="example-full-width">
+          <input (focusout)='isSameAsPassword()' type="password" formControlName='repeat_password' matInput placeholder="Ponovite lozinku" matNativeControl required>
+          <mat-error *ngIf="registerForm.controls['repeat_password'].errors && registerForm.controls['repeat_password'].errors['required']">Obavezno polje</mat-error>
+          <mat-error *ngIf="registerForm.controls['repeat_password'].errors && registerForm.controls['repeat_password'].errors['notsame']">Lozinke nisu iste</mat-error>
+        </mat-form-field>
+      <mat-form-field class="example-full-width">
+        <input formControlName='name' matInput placeholder="Ime" matNativeControl required>
+        <mat-error *ngIf="registerForm.controls['name'].errors && registerForm.controls['name'].errors['required']">Obavezno polje</mat-error>
+        <mat-error *ngIf="registerForm.controls['name'].errors && registerForm.controls['name'].errors['minlength']">Mora biti duze od 2 karaktera</mat-error>
+      </mat-form-field>
+      <mat-form-field class="example-full-width">
+        <input formControlName='surname' matInput placeholder="Prezime" matNativeControl required>
+        <mat-error *ngIf="registerForm.controls['surname'].errors && registerForm.controls['surname'].errors['required']">Obavezno polje</mat-error>
+        <mat-error *ngIf="registerForm.controls['surname'].errors && registerForm.controls['surname'].errors['minlength']">Mora biti duze od 2 karaktera</mat-error>
+      </mat-form-field>
+      <mat-form-field class="example-full-width">
+        <input formControlName='address' matInput placeholder="Adresa" matNativeControl required>
+        <mat-error *ngIf="registerForm.controls['address'].errors && registerForm.controls['address'].errors['required']">Obavezno polje</mat-error>
+        <mat-error *ngIf="registerForm.controls['address'].errors && registerForm.controls['address'].errors['minlength']">Mora biti duza od 2 karaktera</mat-error>
+      </mat-form-field>
+      <mat-form-field class="example-left-half-width">
+        <input matInput [matDatepicker]="picker" formControlName='birthday' placeholder="Datum rodjenja" required>
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+        <mat-error *ngIf="registerForm.controls['birthday'].errors && registerForm.controls['birthday'].errors['required']">Obavezno polje</mat-error>
+      </mat-form-field>
+      <mat-form-field class="example-right-half-width">
+        <mat-label>Tip korisnika</mat-label>
+        <mat-select disableOptionCentering panelClass='selectLinePanel' (selectionChange)='selectChange()' formControlName='type' matNativeControl required>
+          <mat-option value="Obican">Obican</mat-option>
+          <mat-option value="Student">Student - Djak</mat-option>
+          <mat-option value="Penzioner">Penzos</mat-option>
+        </mat-select>
+        <mat-error *ngIf="registerForm.controls['type'].errors && registerForm.controls['type'].errors['required']">Obavezno polje</mat-error>
+      </mat-form-field>
+      <div *ngIf="selectedValue == 'Student' || selectedValue=='Penzioner'" class="upload-file">
+        <input (change)="onFileChanged($event)" type="file" accept="image/png,image/jpeg,image/jpg,image/bmp">
+        <img [src]="imgURL" style="margin-left: 10%; margin-top: 5px" width="320" height="auto" *ngIf="imgURL">
+      </div>
+    </div>
+    <br>
+    <button mat-flat-button color="primary" class='matButtonStyle' type="submit">Potvrdi</button>
+  </form>
+</div>

@@ -1,0 +1,51 @@
+<div *ngIf="dataSource">
+  <h1>AUTOBUSKE LINIJE</h1>
+  <mat-form-field class='ticketsFilter'>
+    <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+  </mat-form-field>
+  <div class='bus-lines'>
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+      <ng-container matColumnDef="Id">
+        <th mat-header-cell *matHeaderCellDef> Linija </th>
+        <td mat-cell *matCellDef="let element"> {{element.Id}} </td>
+      </ng-container>
+      <ng-container matColumnDef="Direction">
+          <th mat-header-cell *matHeaderCellDef> Naziv </th>
+          <td mat-cell *matCellDef="let element"> {{element.Direction}} </td>
+        </ng-container>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;" [ngClass]="{'highlight': row.Selected}"  (click)="selectLine(row)"></tr>
+    </table>
+  </div>
+  <br>
+  <div *ngIf="selectedRowElements && selectedRowElements.length != 0">
+    <mat-expansion-panel [expanded]=true *ngFor="let timetable of selectedRowElements">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          {{timetable.LineId}}
+        </mat-panel-title>
+        <mat-panel-description>
+          {{timetable.Line.Direction}}
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      <div>
+        <div style="margin-left: 5px;">
+          <button mat-flat-button color="primary" class='matButtonStyle btn-w-32' (click)="setSelectedDay(timetable, 'Radni dan')">Radni</button>
+          <button mat-flat-button color="primary" class='matButtonStyle btn-w-32' (click)="setSelectedDay(timetable, 'Subota')">Subota</button>
+          <button mat-flat-button color="primary" class='matButtonStyle btn-w-32' (click)="setSelectedDay(timetable, 'Nedelja')">Nedelja</button>
+        </div>
+        <div *ngIf="timetable.SelectedDay" class="times">
+          <p>{{timetable.SelectedDay}}</p>
+          <div *ngFor="let satMinute of getTimesJson(timetable, timetable.SelectedDay)">
+            <b class='timetableJedanSat'>
+              {{ satMinute.split("|")[0] }}H</b>
+            <span class='timetableMinut' *ngFor="let minut of satMinute.split('|')[1].split(',')">{{ minut }}m</span>
+          </div>
+        </div>
+      </div>
+    </mat-expansion-panel>
+  </div>
+</div>
+  
+  
+  

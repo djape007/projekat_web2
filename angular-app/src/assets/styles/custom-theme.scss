@@ -1,0 +1,60 @@
+
+
+@import '~@angular/material/theming';
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat-core();
+
+$paleta-po-narudzbini: (
+    50 : #fef8eb,
+    100 : #fdefcd,
+    200 : #fbe4ac,
+    300 : #f9d98b,
+    400 : #f8d072,
+    500 : #f7c859,
+    600 : #f6c251,
+    700 : #f5bb48,
+    800 : #f3b43e,
+    900 : #f1a72e,
+    A100 : #ffffff,
+    A200 : #ffffff,
+    A400 : #ffebcc,
+    A700 : #ffe0b2,
+    contrast: (
+        50 : #000000,
+        100 : #000000,
+        200 : #000000,
+        300 : #000000,
+        400 : #000000,
+        500 : #000000,
+        600 : #000000,
+        700 : #000000,
+        800 : #000000,
+        900 : #000000,
+        A100 : #000000,
+        A200 : #000000,
+        A400 : #000000,
+        A700 : #000000,
+    )
+);
+
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+$jgsp-app-primary: mat-palette($paleta-po-narudzbini);
+$jgsp-app-accent:  mat-palette($paleta-po-narudzbini, A200, A100, A400);
+
+// The warn palette is optional (defaults to red).
+$jgsp-app-warn:    mat-palette($mat-red);
+
+// Create the theme object (a Sass map containing all of the palettes).
+$jgsp-app-theme: mat-dark-theme($jgsp-app-primary, $jgsp-app-accent, $jgsp-app-warn);
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include angular-material-theme($jgsp-app-theme);

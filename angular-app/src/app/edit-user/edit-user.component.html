@@ -1,0 +1,71 @@
+<div *ngIf="user">
+  <h1>Profil</h1>
+  <form [formGroup]="myForm" novalidate (ngSubmit)="edit()" style='text-align: center; padding: 10px 0'>     
+    <div class="form-group">
+      <mat-form-field class="example-full-width">
+        <input formControlName='name' matInput placeholder="Ime" matNativeControl required>
+        <mat-error *ngIf="myForm.controls['name'].errors && myForm.controls['name'].errors['required']">Obavezno polje</mat-error>
+        <mat-error *ngIf="myForm.controls['name'].errors && myForm.controls['name'].errors['minlength']">Mora biti duze od 2 karaktera</mat-error>
+      </mat-form-field>
+      <mat-form-field class="example-full-width">
+        <input formControlName='surname' matInput placeholder="Prezime" matNativeControl required>
+        <mat-error *ngIf="myForm.controls['surname'].errors && myForm.controls['surname'].errors['required']">Obavezno polje</mat-error>
+        <mat-error *ngIf="myForm.controls['surname'].errors && myForm.controls['surname'].errors['minlength']">Mora biti duze od 2 karaktera</mat-error>
+      </mat-form-field>
+      <mat-form-field class="example-full-width">
+        <input formControlName='address' matInput placeholder="Adresa" matNativeControl required>
+        <mat-error *ngIf="myForm.controls['address'].errors && myForm.controls['address'].errors['required']">Obavezno polje</mat-error>
+        <mat-error *ngIf="myForm.controls['address'].errors && myForm.controls['address'].errors['minlength']">Mora biti duza od 2 karaktera</mat-error>
+      </mat-form-field>
+      <mat-form-field class="example-full-width">
+        <input matInput [matDatepicker]="picker" formControlName='birthday' placeholder="Datum rodjenja" required>
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+        <mat-error *ngIf="myForm.controls['birthday'].errors && myForm.controls['birthday'].errors['required']">Obavezno polje</mat-error>
+      </mat-form-field>
+    </div>
+    <label>{{message}}</label><br>
+    <button mat-flat-button color="primary" class='matButtonStyle' type="submit">Izmeni</button>
+  </form>
+</div>
+<br>
+<div *ngIf="user && (user.Files!=null)">
+  <div class="div-horizontal">
+    <table>
+      <tr>
+        <td *ngFor="let imgsrc of getUserPhotos()"><a href="{{imgsrc}}" target="_blank"><img src="{{imgsrc}}" height="100px" width="auto"></a></td>
+      </tr>
+    </table>
+  </div>
+</div>
+<div *ngIf="user" class="text-center">
+  <form [formGroup]="passwordForm" novalidate (ngSubmit)="changePassword()" style='text-align: center; padding: 10px 0'>     
+    <div class="form-group">
+      <mat-form-field class="example-full-width">
+        <input type="password" formControlName='old_password' matInput placeholder="Stara lozinka" matNativeControl required>
+        <mat-error *ngIf="passwordForm.controls['old_password'].errors && passwordForm.controls['old_password'].errors['required']">Obavezno polje</mat-error>
+      </mat-form-field>
+      <mat-form-field class="example-full-width">
+        <input type="password" formControlName='new_password' matInput placeholder="Lozinka" matNativeControl required>
+        <mat-error *ngIf="passwordForm.controls['new_password'].errors && passwordForm.controls['new_password'].errors['required']">Obavezno polje</mat-error>
+        <mat-error *ngIf="passwordForm.controls['new_password'].errors && passwordForm.controls['new_password'].errors['minlength']">Mora biti duza od 6 karaktera</mat-error>
+      </mat-form-field>
+      <mat-form-field class="example-full-width">
+          <input (focusout)='isSameAsPassword()' type="password" formControlName='repeat_password' matInput placeholder="Ponovite lozinku" matNativeControl required>
+          <mat-error *ngIf="passwordForm.controls['repeat_password'].errors && passwordForm.controls['repeat_password'].errors['required']">Obavezno polje</mat-error>
+          <mat-error *ngIf="passwordForm.controls['repeat_password'].errors && passwordForm.controls['repeat_password'].errors['notsame']">Lozinke nisu iste</mat-error>
+        </mat-form-field>
+    </div>
+    <label>{{message_password}}</label><br>
+    <button mat-flat-button color="primary" class='matButtonStyle' type="submit">Izmeni lozinku</button>
+  </form>
+</div>
+<div *ngIf="user">
+  <div class="margin-10" style="padding: 10px 0">
+    <input (change)="onFileChanged($event)" type="file" accept="image/png,image/jpeg,image/jpg,image/bmp">
+    <img [src]="imgURL" style="margin-top: 5px" width="320" height="auto" *ngIf="imgURL">
+    <br>
+    <button mat-flat-button color="primary" class='matButtonStyle' (click)='dodajSliku()'>Dodaj sliku</button>
+  </div>
+</div>
+<br>
